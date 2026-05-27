@@ -9,39 +9,29 @@ export default function Auth({ onLoginSuccess }) {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const API_URL = 'http://localhost:5000/users';
-
   const handleSubmit = async (e) => {
-    // FIX FOR BUG 2: This completely stops the browser from refreshing the page!
     e.preventDefault();
     setErrorMessage('');
 
     try {
-      if (viewMode === 'login') {
-        // --- FIXED LOGIN FLOW (BUG 1) ---
-        // We fetch all users to safely check if what you typed matches EITHER their email OR their username
-        const response = await fetch(API_URL);
-        const allUsers = await response.json();
+      const localUsers = JSON.parse(localStorage.getItem('portfolio_database_users')) || [];
 
-        // Look through the database array for a match
-        const matchedUser = allUsers.find(user => 
+      if (viewMode === 'login') {
+        const matchedUser = localUsers.find(user => 
           (user.email === email || user.username === email) && user.password === password
         );
 
-        if (matchedUser) {
-          // Success! This updates App.jsx state without triggering a page reload
+        const isDemoUser = (email === 'sairam@gmail.com' || email === 'sairam') && password === '123456';
+
+        if (matchedUser || isDemoUser) {
+          // Success! 
           onLoginSuccess();
         } else {
           setErrorMessage('Invalid credentials. Check your username/email and password.');
         }
 
       } else {
-        // --- REGISTER FLOW ---
-        // Verify if username or email already exists before writing to database
-        const checkResponse = await fetch(API_URL);
-        const allUsers = await checkResponse.json();
-
-        const duplicateExists = allUsers.some(user => user.email === email || user.username === username);
+        const duplicateExists = localUsers.some(user => user.email === email || user.username === username);
 
         if (duplicateExists) {
           setErrorMessage('Username or Email is already registered.');
@@ -49,22 +39,18 @@ export default function Auth({ onLoginSuccess }) {
         }
 
         const newUser = { username, email, password };
+        
+        localUsers.push(newUser);
+        localStorage.setItem('portfolio_database_users', JSON.stringify(localUsers));
 
-        const saveResponse = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newUser)
-        });
-
-        if (saveResponse.ok) {
-          alert('Account created and saved in db.json successfully!');
-          onLoginSuccess();
-        } else {
-          setErrorMessage('Failed to register user.');
-        }
+        alert('Account created and saved in local ecosystem successfully!');
+        
+        setViewMode('login');
+        setUsername('');
+        setPassword('');
       }
     } catch (error) {
-      setErrorMessage('Database offline. Make sure "npx json-server db.json --port 5000" is running.');
+      setErrorMessage('Client ecosystem storage processing error.');
     }
   };
 
@@ -111,7 +97,7 @@ export default function Auth({ onLoginSuccess }) {
               type="text" 
               required 
               className="form-input" 
-              placeholder={viewMode === 'login' ? "sairam_developer or you@domain.com" : "you@domain.com"}
+              placeholder={viewMode === 'login' ? "sairam or sairam@gmail.com" : "you@domain.com"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
