@@ -31,7 +31,7 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
             <span className="tagline">Frontend Developer</span>
             <h1 className="hero-title">Building High-Performance Single Page Applications</h1>
             <p className="hero-description">
-              Frontend Developer with 5+ years of experience building scalable, high-performance Single Page Applications (SPAs) for enterprise clients across healthcare, logistics, e-commerce, insurance, and public safety domains. Proficient in React.js, Redux Toolkit, TypeScript, and modern JavaScript (ES6+).
+              Frontend Developer with 5+ years of experience building scalable, high-performance Single Page Applications (SPAs) for enterprise clients across healthcare, logistics, e-commerce, insurance, and public safety domains. Proficient in React.js, Redux Toolkit, TypeScript, and modern JavaScript (ES6+), with a strong track record of improving performance by up to 40%, reducing defects by 25%, and accelerating feature delivery. Experienced in JWT authentication, REST/GraphQL API integrations, WebSocket, CI/CD pipelines, Jest/React Testing Library, and Agile/Scrum delivery.
             </p>
           </div>
 
