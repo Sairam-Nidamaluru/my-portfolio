@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Auth from './Components/Auth/Authpage';
+import Authpage from './Components/Auth/Authpage'; 
 import Homepage from './Components/Home/Homepage';
 
 function App() {
@@ -7,7 +7,6 @@ function App() {
     return localStorage.getItem('isUserLoggedIn') === 'true';
   });
 
- 
   const [initialAuthView, setInitialAuthView] = useState('login');
 
   const handleLoginSuccess = () => {
@@ -20,7 +19,6 @@ function App() {
     setInitialAuthView('login'); 
     setIsAuthenticated(false);
   };
-
 
   const handleRedirectToRegister = () => {
     localStorage.removeItem('isUserLoggedIn'); 
@@ -36,6 +34,7 @@ function App() {
           onRegisterRedirect={handleRedirectToRegister} 
         />
       ) : (
+        /* ఇప్పుడు ఈ Authpage కంపోనెంట్ ఎర్రర్ లేకుండా పర్ఫెక్ట్‌గా లోడ్ అవుతుంది */
         <Authpage 
           onLoginSuccess={handleLoginSuccess} 
           forcedView={initialAuthView} 
@@ -44,4 +43,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
