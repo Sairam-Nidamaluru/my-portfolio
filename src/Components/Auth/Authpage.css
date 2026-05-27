@@ -1,0 +1,113 @@
+/* src/components/Auth.css */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #131c2e;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(to right, #22d3ee, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  background-color: #0b0f19;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #22d3ee;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(to right, #06b6d4, #2563eb);
+  color: #0b0f19;
+  font-weight: 700;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* Smart Navigation Switch Style */
+.switch-container {
+  margin-top: 24px;
+  text-align: center;
+  border-top: 1px solid #1e293b;
+  padding-top: 20px;
+}
+
+.switch-text {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.smart-switch-btn {
+  background: none;
+  border: none;
+  color: #22d3ee;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 6px;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.smart-switch-btn:hover {
+  color: #a78bfa;
+}
