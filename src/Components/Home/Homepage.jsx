@@ -12,7 +12,7 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
         <nav className="nav-links">
           <a href="#home">Home</a>
           <a href="#work">Work Exp</a>
-          <a href="#skills">Skills</a> {/* CHANGED FROM ABOUT TO SKILLS */}
+          <a href="#skills">Skills</a>
           <a href="#contact">Contact</a>
         </nav>
 
@@ -35,7 +35,8 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
             </p>
           </div>
 
-          <div className="image-placeholder-box hero-media">
+          {/* FIX: CSS క్లాస్ నేమ్‌ను ఇక్కడ 'image-container-box' గా మార్చాం */}
+          <div className="image-container-box hero-media">
             <img 
               src="/coding.jpg" 
               alt="Nidamaluru Sairam Profile" 
@@ -149,14 +150,13 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
                 <ul className="timeline-bullets">
                   <li>Developed responsive UI modules for a healthcare claims processing platform using HTML5, CSS3, and React.js, translating wireframes into functional, production-ready components.</li>
                   <li>Utilized ES6+ JavaScript patterns including async/await, Promise chaining, destructuring, and optional chaining to write clean, readable, and maintainable component logic.</li>
-                  <li>Implemented conditional rendering and loading skeletons to improve perceived performance during API calls, reducing user frustration on slower network connections.</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 4. ASYMMETRIC GRID MAP (Wireframe Row 4 & 5) */}
+        {/* 4. ASYMMETRIC GRID MAP */}
         <div className="asymmetric-grid" id="skills">
           
           {/* Left Column Stack: Core Technical Skill Matrices */}
@@ -183,14 +183,14 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
               <div className="skills-category-group">
                 <h3>API Integration & Auth</h3>
                 <div className="skills-pill-box">
-                  <span>REST APIs</span><span>GraphQL</span><span>Apollo Client</span><span>Axios</span><span>Fetch API</span><span>JWT</span><span>Token Refresh Strategy</span><span>Session Management</span>
+                  <span>REST APIs</span><span>GraphQL</span><span>Apollo Client</span><span>Axios</span><span>Fetch API</span><span>JWT</span><span>Token Refresh Strategy</span>
                 </div>
               </div>
 
               <div className="skills-category-group">
                 <h3>Performance Optimization</h3>
                 <div className="skills-pill-box">
-                  <span>Code Splitting</span><span>Lazy Loading</span><span>React.memo</span><span>useMemo</span><span>useCallback</span><span>Virtualization Libraries</span>
+                  <span>Code Splitting</span><span>Lazy Loading</span><span>React.memo</span><span>useMemo</span><span>useCallback</span>
                 </div>
               </div>
 
@@ -202,35 +202,15 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
               </div>
 
               <div className="skills-category-group">
-                <h3>Real-Time & Communication</h3>
+                <h3>Testing & Tooling</h3>
                 <div className="skills-pill-box">
-                  <span>WebSocket</span><span>Socket.io</span>
-                </div>
-              </div>
-
-              <div className="skills-category-group">
-                <h3>Testing & Quality Assurance</h3>
-                <div className="skills-pill-box">
-                  <span>Jest</span><span>React Testing Library</span><span>ESLint</span>
-                </div>
-              </div>
-
-              <div className="skills-category-group">
-                <h3>Build Tools & Pipelines</h3>
-                <div className="skills-pill-box">
-                  <span>Webpack</span><span>Vite</span><span>npm</span><span>Git</span><span>GitHub Actions</span><span>CI/CD Pipelines</span>
-                </div>
-              </div>
-
-              <div className="skills-category-group">
-                <h3>Accessibility & Collaboration</h3>
-                <div className="skills-pill-box">
-                  <span>Semantic HTML</span><span>ARIA Roles</span><span>GitHub</span><span>Jira</span><span>Figma</span><span>VS Code</span><span>Agile/Scrum</span>
+                  <span>Jest</span><span>React Testing Library</span><span>Webpack</span><span>Vite</span><span>Git</span><span>CI/CD</span><span>Agile/Scrum</span>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Right Column Stack */}
           <div className="sub-stack">
             <div className="card achievements-card">
               <div className="achievements-header-block">
@@ -239,23 +219,19 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
               <ul className="achievements-list">
                 <li>
                   <span className="metric-accent">~30%</span> 
-                  <p>Reduced frontend load time for UPS Healthcare logistics platform via lazy loading and EDS optimization[cite: 61].</p>
+                  <p>Reduced frontend load time for UPS Healthcare logistics platform via lazy loading and EDS optimization.</p>
                 </li>
                 <li>
                   <span className="metric-accent">~40%</span> 
-                  <p>Cut unnecessary React re-renders on H&M's high-traffic product grids using React.memo and useMemo[cite: 62].</p>
+                  <p>Cut unnecessary React re-renders on H&M's high-traffic product grids using React.memo and useMemo.</p>
                 </li>
                 <li>
                   <span className="metric-accent">~25%</span> 
-                  <p>Decreased UI production defects at Exabyte Technologies by introducing Jest + React Testing Library coverage[cite: 63].</p>
+                  <p>Decreased UI production defects at Exabyte Technologies by introducing Jest + React Testing Library coverage.</p>
                 </li>
                 <li>
                   <span className="metric-accent">20%</span> 
-                  <p>Accelerated feature delivery through internal shared component libraries adopted across all product modules[cite: 64].</p>
-                </li>
-                <li>
-                  <span className="metric-accent">5+</span> 
-                  <p>Delivered frontend solutions across enterprise client engagements spanning healthcare, logistics, retail, insurance, and public safety domains[cite: 65].</p>
+                  <p>Accelerated feature delivery through internal shared component libraries adopted across all product modules.</p>
                 </li>
               </ul>
             </div>
