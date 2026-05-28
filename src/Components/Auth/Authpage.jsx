@@ -39,12 +39,20 @@ function Authpage({ onLoginSuccess }) {
         }
 
       } else {
-        const checkResponse = await fetch(API_URL);
-        if (!checkResponse.ok) throw new Error('Failed to fetch existing user data.');
+        let safeRegisterUsers = [];
         
-        const currentUsers = await checkResponse.json();
-
-        const safeRegisterUsers = Array.isArray(currentUsers) ? currentUsers : [];
+        try {
+          const checkResponse = await fetch(API_URL);
+          if (checkResponse.ok) {
+            const currentUsers = await checkResponse.json();
+            if (Array.isArray(currentUsers)) {
+              safeRegisterUsers = currentUsers;
+            }
+          }
+        } catch (fetchErr) {
+          console.log("Database is initially empty or fresh, setting up array:", fetchErr);
+          safeRegisterUsers = [];
+        }
 
         const duplicateExists = safeRegisterUsers.some(user => user.email === email || user.username === username);
 
@@ -76,7 +84,7 @@ function Authpage({ onLoginSuccess }) {
         }
       }
     } catch (error) {
-      console.error("API Error: ", error);
+      console.error("Main API Error Log: ", error);
       setErrorMessage('Cloud database integration processing error.');
     } finally {
       setIsLoading(false);
@@ -174,4 +182,5 @@ function Authpage({ onLoginSuccess }) {
     </div>
   );
 }
+
 export default Authpage;
