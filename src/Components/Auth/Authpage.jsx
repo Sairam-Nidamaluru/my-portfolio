@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './Authpage.css';
 
-export default function Auth({ onLoginSuccess }) {
+function Authpage({ onLoginSuccess }) {
   const [viewMode, setViewMode] = useState('login'); 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -174,3 +174,4 @@ export default function Auth({ onLoginSuccess }) {
     </div>
   );
 }
+export default Authpage;
