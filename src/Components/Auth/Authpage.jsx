@@ -23,8 +23,10 @@ export default function Auth({ onLoginSuccess }) {
         if (!response.ok) throw new Error('Database server connection error.');
         
         const serverUsers = await response.json();
+        
+        const safeLoginUsers = Array.isArray(serverUsers) ? serverUsers : [];
 
-        const matchedUser = serverUsers.find(user => 
+        const matchedUser = safeLoginUsers.find(user => 
           (user.email === email || user.username === email) && user.password === password
         );
 
@@ -38,9 +40,13 @@ export default function Auth({ onLoginSuccess }) {
 
       } else {
         const checkResponse = await fetch(API_URL);
+        if (!checkResponse.ok) throw new Error('Failed to fetch existing user data.');
+        
         const currentUsers = await checkResponse.json();
 
-        const duplicateExists = currentUsers.some(user => user.email === email || user.username === username);
+        const safeRegisterUsers = Array.isArray(currentUsers) ? currentUsers : [];
+
+        const duplicateExists = safeRegisterUsers.some(user => user.email === email || user.username === username);
 
         if (duplicateExists) {
           setErrorMessage('Username or Email is already registered.');
@@ -53,6 +59,7 @@ export default function Auth({ onLoginSuccess }) {
         const saveResponse = await fetch(API_URL, {
           method: 'POST',
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(newUser)
@@ -62,6 +69,7 @@ export default function Auth({ onLoginSuccess }) {
           alert('Account created and saved in cloud database successfully!');
           setViewMode('login');
           setUsername('');
+          setEmail(''); 
           setPassword('');
         } else {
           setErrorMessage('Failed to register user to the cloud database.');
