@@ -10,7 +10,7 @@ export default function Auth({ onLoginSuccess }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
 
-  const API_URL = 'https://my-portfolio-database-30dj.onrender.com/users';
+  const API_URL = 'https://6a1839981878294b597c9e3e.mockapi.io/users';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
