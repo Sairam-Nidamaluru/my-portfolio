@@ -18,11 +18,17 @@ export default function Authpage({ onLoginSuccess }) {
 
     try {
       if (viewMode === 'login') {
+
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Database server connection error.');
+        
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('API Endpoint path mismatch. Please check your MockAPI resource.');
+          }
+          throw new Error('Database server connection error.');
+        }
         
         const serverUsers = await response.json();
-        
         const safeLoginUsers = Array.isArray(serverUsers) ? serverUsers : [];
 
         const matchedUser = safeLoginUsers.find(user => 
@@ -38,6 +44,7 @@ export default function Authpage({ onLoginSuccess }) {
         }
 
       } else {
+
         let safeRegisterUsers = [];
         
         try {
@@ -49,7 +56,7 @@ export default function Authpage({ onLoginSuccess }) {
             }
           }
         } catch (fetchErr) {
-          console.log("Database is initially empty or fresh, setting up array:", fetchErr);
+          console.log("Database is empty or first user sign-up setup:", fetchErr);
           safeRegisterUsers = [];
         }
 
@@ -79,12 +86,12 @@ export default function Authpage({ onLoginSuccess }) {
           setEmail(''); 
           setPassword('');
         } else {
-          setErrorMessage('Failed to register user to the cloud database.');
+          setErrorMessage('Failed to register user to the cloud database. Check endpoint config.');
         }
       }
     } catch (error) {
       console.error("Main API Error Log: ", error);
-      setErrorMessage('Cloud database integration processing error.');
+      setErrorMessage(error.message || 'Cloud database integration processing error.');
     } finally {
       setIsLoading(false);
     }
