@@ -1,8 +1,7 @@
-// src/components/Auth.jsx
 import React, { useState } from 'react';
 import './Authpage.css';
 
-function Authpage({ onLoginSuccess }) {
+export default function Authpage({ onLoginSuccess }) {
   const [viewMode, setViewMode] = useState('login'); 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -182,5 +181,3 @@ function Authpage({ onLoginSuccess }) {
     </div>
   );
 }
-
-export default Authpage;
