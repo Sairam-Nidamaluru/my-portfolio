@@ -34,7 +34,7 @@ function App() {
     if (showHomeWelcome) {
       const timer = setTimeout(() => {
         setShowHomeWelcome(false); 
-      }, 4000); 
+      }, 3000); 
 
       return () => clearTimeout(timer);
     }
@@ -110,7 +110,7 @@ function App() {
               Hello {loggedInUser || 'Buddy'} 👋
             </h1>
             <p style={{ fontSize: '1.6rem', fontWeight: '400', maxWidth: '700px', lineHeight: '1.6', opacity: '0.95' }}>
-              Thanks for visiting Sairam's portfolio. Let's see the Sairam portfolio!
+              Thanks for visiting. Let's see the Sairam Homepage!
             </p>
             <div style={{ marginTop: '30px', width: '50px', height: '50px', border: '5px solid rgba(255,255,255,0.2)', borderTop: '5px solid #ffffff', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
             <style>{`
