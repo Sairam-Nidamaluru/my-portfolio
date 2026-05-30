@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Authpage.css';
 
 function Authpage({ onLoginSuccess }) {
@@ -9,7 +9,54 @@ function Authpage({ onLoginSuccess }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
 
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 🎯 1. మల్టిపుల్ టైమర్స్ మెమరీ లీక్స్ రాకుండా కంట్రోల్ చేసే రిఫరెన్స్ buddy
+  const passwordTimerRef = useRef(null);
+
   const API_URL = 'https://6a1873051878294b597d2750.mockapi.io/users';
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(false); 
+    }, 3000); 
+
+    return () => clearTimeout(timer); 
+  }, []);
+
+  // 🎯 2. వ్యూ మోడ్ మారినప్పుడు పాస్‌వర్డ్ హైడ్ అవ్వడంతో పాటు రన్నింగ్ టైమర్‌ను క్లియర్ చేస్తున్నాం g
+  useEffect(() => {
+    setShowPassword(false);
+    if (passwordTimerRef.current) {
+      clearTimeout(passwordTimerRef.current);
+    }
+  }, [viewMode]);
+
+  // 🎯 3. కంపొనెంట్ అన్‌మౌంట్ అయినప్పుడు టైమర్ క్లీనప్ buddy
+  useEffect(() => {
+    return () => {
+      if (passwordTimerRef.current) clearTimeout(passwordTimerRef.current);
+    };
+  }, []);
+
+  // 🎯 4. ఐకాన్ క్లిక్ చేసినప్పుడు రన్ అయ్యే స్మార్ట్ 2-సెకండ్స్ ఆటో హైడ్ ఫంక్షన్ g
+  const togglePasswordVisibility = () => {
+    // ఒకవేళ ఆల్రెడీ రన్నింగ్ టైమర్ ఉంటే దాన్ని ముందే క్లియర్ చేస్తాం
+    if (passwordTimerRef.current) {
+      clearTimeout(passwordTimerRef.current);
+    }
+
+    if (showPassword) {
+      setShowPassword(false);
+    } else {
+      setShowPassword(true);
+      // కరెక్ట్‌గా 2 సెకన్ల (2000ms) తర్వాత ఆటోమేటిక్‌గా హైడ్ అయిపోతుంది buddy
+      passwordTimerRef.current = setTimeout(() => {
+        setShowPassword(false);
+      }, 1000);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +65,6 @@ function Authpage({ onLoginSuccess }) {
 
     try {
       if (viewMode === 'login') {
-
         const response = await fetch(API_URL);
         
         if (!response.ok) {
@@ -37,14 +83,15 @@ function Authpage({ onLoginSuccess }) {
 
         const isDemoUser = (email === 'sairam@gmail.com' || email === 'sairam') && password === '123456';
 
-        if (matchedUser || isDemoUser) {
-          onLoginSuccess();
+        if (matchedUser) {
+          onLoginSuccess(matchedUser.username); 
+        } else if (isDemoUser) {
+          onLoginSuccess('sairam'); 
         } else {
           setErrorMessage('Invalid credentials. Check your username/email and password.');
         }
 
       } else {
-
         let safeRegisterUsers = [];
         
         try {
@@ -150,15 +197,44 @@ function Authpage({ onLoginSuccess }) {
 
           <div className="form-group">
             <label>Password</label>
-            <input 
-              type="password" 
-              required 
-              className="form-input" 
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={isLoading}
-            />
+            <div style={{ position: 'relative', width: '100%' }}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                required 
+                className="form-input" 
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
+                style={{ paddingRight: '45px', width: '100%' }} 
+              />
+              
+              {/* 🎯 5. కొత్త టోగుల్ క్లిక్ ఫంక్షన్ యాడ్ చేసిన ఐకాన్ బటన్ buddy */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                disabled={isLoading}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                  padding: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  outline: 'none',
+                  userSelect: 'none'
+                }}
+                title="Show password briefly"
+              >
+                {showPassword ? '👁️' : '🙈'} 
+              </button>
+            </div>
           </div>
 
           <button type="submit" className="submit-btn" disabled={isLoading}>
@@ -188,4 +264,5 @@ function Authpage({ onLoginSuccess }) {
     </div>
   );
 }
+
 export default Authpage;

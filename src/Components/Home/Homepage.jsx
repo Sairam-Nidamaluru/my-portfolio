@@ -1,7 +1,7 @@
 import React from 'react';
 import './Homepage.css';
 
-export default function Homepage({ onLogout, onRegisterRedirect }) {
+export default function Homepage({ onLogout, onRegisterRedirect}) {
   return (
     <div className="portfolio-wrapper">
       
@@ -35,7 +35,6 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
             </p>
           </div>
 
-          {/* FIX: CSS క్లాస్ నేమ్‌ను ఇక్కడ 'image-container-box' గా మార్చాం */}
           <div className="image-container-box hero-media">
             <img 
               src="/coding.jpg" 
@@ -110,8 +109,8 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
             <div className="timeline-item">
               <div className="timeline-dot"></div>
               <span className="timeline-date">Sep 2022 – Jul 2024</span>
-              <h3 className="timeline-title">Software Engineer — Exabyte Technologies</h3>
-              <p className="timeline-location"><strong>Location:</strong> Pune</p>
+              <h3 className="timeline-title">Software Engineer — Box Ventures Pvt Ltd</h3>
+              <p className="timeline-location"><strong>Location:</strong>Chennai</p>
               <div className="project-block">
                 <h4 className="project-title">Project: Safety Management — Public Safety Platform</h4>
                 <ul className="timeline-bullets">
@@ -150,6 +149,7 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
                 <ul className="timeline-bullets">
                   <li>Developed responsive UI modules for a healthcare claims processing platform using HTML5, CSS3, and React.js, translating wireframes into functional, production-ready components.</li>
                   <li>Utilized ES6+ JavaScript patterns including async/await, Promise chaining, destructuring, and optional chaining to write clean, readable, and maintainable component logic.</li>
+                  <li>Collaborated with backend developers to integrate REST APIs for claims data retrieval and submission, implementing robust error handling and user feedback mechanisms.</li>
                 </ul>
               </div>
             </div>
@@ -238,11 +238,10 @@ export default function Homepage({ onLogout, onRegisterRedirect }) {
             
             <div id="contact" className="card contact-card">
               <h2>Initiate Contact</h2>
-              <p className="contact-subtext">Submit parameters to establish secure real-time routing nodes.</p>
               
               <form onSubmit={(e) => e.preventDefault()} className="contact-form">
                 <div className="contact-info-static">
-                  <span><strong>Contact Node:</strong> sairam288sai@gmail.com</span>
+                  <span><strong>Contact Node:</strong> sairam.nidamaluru288@gmail.com</span>
                 </div>
                 <input type="text" placeholder="Your Identity Anchor" className="form-input-alt" />
                 <input type="email" placeholder="Your Communication Email" className="form-input-alt" />
